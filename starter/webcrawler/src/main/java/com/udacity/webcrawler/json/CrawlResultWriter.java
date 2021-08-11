@@ -28,6 +28,7 @@ public final class CrawlResultWriter {
   public void write(Path path) {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(path);
+
     // TODO: Fill in this method.
   }
 
@@ -39,6 +40,12 @@ public final class CrawlResultWriter {
   public void write(Writer writer) {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(writer);
-    // TODO: Fill in this method.
+    try{
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.writeValue(writer, result);
+    } catch(Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
   }
 }
