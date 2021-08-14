@@ -47,9 +47,15 @@ public final class ConfigurationLoader {
   public static CrawlerConfiguration read(Reader reader) {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(reader);
-    ObjectMapper objectMapper = new ObjectMapper();
-    CrawlerConfiguration.Builder builder = objectMapper.readValue(reader, CrawlerConfiguration.Builder.class);
+    try{
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.disable(com.fasterxml.jackson.core.JsonParser.Feature.AUTO_CLOSE_SOURCE);
+      CrawlerConfiguration.Builder builder = objectMapper.readValue(reader, CrawlerConfiguration.Builder.class);
+      return builder.build();
+    } catch(Exception e) {
+      e.printStackTrace();
+      return null;
+    }
 
-    return new builder.build();
   }
 }

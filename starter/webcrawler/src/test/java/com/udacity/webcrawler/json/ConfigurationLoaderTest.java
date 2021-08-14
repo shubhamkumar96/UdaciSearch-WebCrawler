@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class ConfigurationLoaderTest {
 
@@ -28,6 +29,7 @@ public final class ConfigurationLoaderTest {
         " }";
 
     Reader reader = new StringReader(json);
+    ObjectMapper objectMapper = new ObjectMapper();
     CrawlerConfiguration config = ConfigurationLoader.read(reader);
     try {
       assertThat(reader.ready()).isTrue();
